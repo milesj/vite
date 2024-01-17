@@ -1098,6 +1098,8 @@ function resolveExportsOrImports(
     conditions,
   })
 
+  console.log('resolveExportsOrImports', key, result)
+
   return result ? result[0] : undefined
 }
 
@@ -1310,5 +1312,7 @@ function equalWithoutSuffix(path: string, key: string, suffix: string) {
  * - The file is NOT within node modules (symlinks must be resolved).
  */
 function isWithinLocalWorkspace(id: string, appRoot: string) {
+  console.log('isWithinLocalWorkspace', { id, appRoot })
+
   return !id.startsWith(appRoot) && !id.includes('node_modules')
 }
