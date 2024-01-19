@@ -125,6 +125,9 @@ export interface InternalResolveOptions extends Required<ResolveOptions> {
    * @internal
    */
   idOnly?: boolean
+
+  // Maps to the experiment of the same name
+  vitePackageEntryPoints?: boolean
 }
 
 export function resolvePlugin(resolveOptions: InternalResolveOptions): Plugin {
@@ -980,7 +983,7 @@ export function resolvePackageEntry(
       const mainFields = [...options.mainFields]
 
       // Support `vite` entry point field for local packages
-      if (pkg.inWorkspace) {
+      if (pkg.inWorkspace && options.vitePackageEntryPoints) {
         mainFields.unshift('vite')
       }
 
@@ -1088,7 +1091,7 @@ function resolveExportsOrImports(
   })
 
   // Support `vite` condition for local packages
-  if (pkg.inWorkspace) {
+  if (pkg.inWorkspace && options.vitePackageEntryPoints) {
     conditions.unshift('vite')
   }
 
